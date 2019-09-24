@@ -11,7 +11,8 @@ const catalogRouter = require('./routes/catalog')
 var app = express()
 // 设置 MongoDB 连接
 // const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://shunshun:shunshun1998@locallibrary-nkeov.gcp.mongodb.net/test?retryWrites=true&w=majority";
+const uri =
+  'mongodb+srv://shunshun:shunshun1998@locallibrary-nkeov.gcp.mongodb.net/test?retryWrites=true&w=majority'
 // const client = new MongoClient(uri, { useNewUrlParser: true });
 // client.connect(err => {
 //   const collection = client.db("test").collection("devices");
@@ -21,11 +22,10 @@ const uri = "mongodb+srv://shunshun:shunshun1998@locallibrary-nkeov.gcp.mongodb.
 // 设置 Mongoose 连接
 const mongoose = require('mongoose')
 const mongoDB = uri
-mongoose.connect(mongoDB)
+mongoose.connect(uri, { useNewUrlParser: true })
 mongoose.Promise = global.Promise
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'MongoDB 连接错误：'))
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
