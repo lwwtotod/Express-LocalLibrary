@@ -40,5 +40,5 @@ router.get('/books', book_controller.book_list)
 
 // GET 请求完整藏书列表
 router.get('/bookinstances', book_instance_controller.bookinstance_list)
-
+router.get('/authors', author_controller.author_list)
 module.exports = router
