@@ -38,4 +38,7 @@ router.get('/books', book_controller.book_list)
 
 /// 藏书副本、藏书种类、作者的路由与藏书路由结构基本一致，只是无需获取主页 ///
 
+// GET 请求完整藏书列表
+router.get('/bookinstances', book_instance_controller.bookinstance_list)
+
 module.exports = router

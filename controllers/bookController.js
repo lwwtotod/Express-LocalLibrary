@@ -1,10 +1,10 @@
 const Book = require('../models/book')
 
-var Author = require('../models/author')
-var Genre = require('../models/genre')
-var BookInstance = require('../models/bookinstance')
+const Author = require('../models/author')
+const Genre = require('../models/genre')
+const BookInstance = require('../models/bookinstance')
 
-var async = require('async')
+const async = require('async')
 
 exports.index = function(req, res) {
   async.parallel(
@@ -27,7 +27,7 @@ exports.index = function(req, res) {
     },
     function(err, results) {
       res.render('index', {
-        title: 'Local Library Home',
+        title: '图书馆 主页',
         error: err,
         data: results,
       })
@@ -36,7 +36,15 @@ exports.index = function(req, res) {
 }
 // 显示完整的作者列表
 exports.book_list = (req, res) => {
-  res.send('未实现：作者列表')
+  Book.find({}, 'title author')
+    .populate('author')
+    .exec(function(err, list_books) {
+      if (err) {
+        return next(err)
+      }
+      //Successful, so render
+      res.render('book_list', { title: '图书列表', book_list: list_books })
+    })
 }
 
 // 为每位作者显示详细信息的页面
