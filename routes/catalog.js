@@ -40,5 +40,11 @@ router.get('/books', book_controller.book_list)
 
 // GET 请求完整藏书列表
 router.get('/bookinstances', book_instance_controller.bookinstance_list)
+router.get('/bookinstance/:id', book_instance_controller.bookinstance_detail)
+
 router.get('/authors', author_controller.author_list)
+router.get('/author/:id', author_controller.author_detail)
+
+router.get('/genres', genre_controller.genre_list)
+router.get('/genre/:id', genre_controller.genre_detail)
 module.exports = router

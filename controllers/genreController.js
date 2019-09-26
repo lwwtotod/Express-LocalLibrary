@@ -1,13 +1,52 @@
 const Genre = require('../models/genre')
-
+var Book = require('../models/book')
+var async = require('async')
 // 显示完整的作者列表
 exports.genre_list = (req, res) => {
-  res.send('未实现：作者列表')
+  Genre.find()
+    .populate('Genre')
+    .exec(function(err, list_genre) {
+      if (err) {
+        return next(err)
+      }
+      // Successful, so render
+      res.render('genre_list', {
+        title: '图书分类列表',
+        genre_list: list_genre,
+      })
+    })
 }
 
 // 为每位作者显示详细信息的页面
 exports.genre_detail = (req, res) => {
-  res.send('未实现：作者详细信息：' + req.params.id)
+  async.parallel(
+    {
+      genre: function(callback) {
+        Genre.findById(req.params.id).exec(callback)
+      },
+
+      genre_books: function(callback) {
+        Book.find({ genre: req.params.id }).exec(callback)
+      },
+    },
+    function(err, results) {
+      if (err) {
+        return next(err)
+      }
+      if (results.genre == null) {
+        // No results.
+        var err = new Error('Genre not found')
+        err.status = 404
+        return next(err)
+      }
+      // Successful, so render
+      res.render('genre_detail', {
+        title: 'Genre Detail',
+        genre: results.genre,
+        genre_books: results.genre_books,
+      })
+    },
+  )
 }
 
 // 由 GET 显示创建作者的表单
