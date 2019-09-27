@@ -6,7 +6,7 @@ const BookInstance = require('../models/bookinstance')
 
 const async = require('async')
 
-exports.index = function(req, res) {
+exports.index = function(req, res, next) {
   async.parallel(
     {
       book_count: function(callback) {
@@ -35,7 +35,7 @@ exports.index = function(req, res) {
   )
 }
 // 显示完整的作者列表
-exports.book_list = (req, res) => {
+exports.book_list = (req, res, next) => {
   Book.find({}, 'title author')
     .populate('author')
     .exec(function(err, list_books) {
@@ -48,7 +48,7 @@ exports.book_list = (req, res) => {
 }
 
 // 为每位作者显示详细信息的页面
-exports.book_detail = (req, res) => {
+exports.book_detail = (req, res, next) => {
   async.parallel(
     {
       book: function(callback) {

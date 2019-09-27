@@ -2,7 +2,7 @@ const Author = require('../models/author')
 var async = require('async')
 var Book = require('../models/book')
 // 显示完整的作者列表
-exports.author_list = (req, res) => {
+exports.author_list = (req, res, next) => {
   Author.find()
     .sort([['family_name', 'ascending']])
     .exec(function(err, list_authors) {
@@ -18,7 +18,7 @@ exports.author_list = (req, res) => {
 }
 
 // 为每位作者显示详细信息的页面
-exports.author_detail = (req, res) => {
+exports.author_detail = (req, res, next) => {
   async.parallel(
     {
       author: function(callback) {

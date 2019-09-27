@@ -44,7 +44,10 @@ router.get('/bookinstance/:id', book_instance_controller.bookinstance_detail)
 
 router.get('/authors', author_controller.author_list)
 router.get('/author/:id', author_controller.author_detail)
+router.get('/author/create', author_controller.author_list)
 
 router.get('/genres', genre_controller.genre_list)
 router.get('/genre/:id', genre_controller.genre_detail)
+router.get('/genre/create', genre_controller.genre_create_get)
+router.post('/genre/create', genre_controller.genre_create_post)
 module.exports = router

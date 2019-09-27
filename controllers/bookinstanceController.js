@@ -1,7 +1,7 @@
 const BookInstance = require('../models/bookinstance')
 
 // 显示完整的作者列表
-exports.bookinstance_list = (req, res) => {
+exports.bookinstance_list = (req, res, next) => {
   BookInstance.find()
     .populate('book')
     .exec(function(err, list_bookinstances) {
@@ -17,7 +17,7 @@ exports.bookinstance_list = (req, res) => {
 }
 
 // 为每位作者显示详细信息的页面
-exports.bookinstance_detail = (req, res) => {
+exports.bookinstance_detail = (req, res, next) => {
   BookInstance.findById(req.params.id)
     .populate('book')
     .exec(function(err, bookinstance) {
