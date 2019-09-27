@@ -17,7 +17,7 @@ AuthorSchema.virtual('name').get(function() {
 // 虚拟属性'lifespan'：作者寿命
 AuthorSchema.virtual('lifespan').get(function() {
   return (
-    this.date_of_death.getYear() - this.date_of_birth.getYear()
+    this.date_of_death - this.date_of_birth
   ).toString()
 })
 

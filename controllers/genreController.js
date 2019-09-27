@@ -57,16 +57,15 @@ exports.genre_create_get = (req, res, next) => {
 }
 
 // 由 POST 处理作者创建操作
-exports.genre_create_post = (req, res, next) => [
+// Handle Genre create on POST.
+exports.genre_create_post = [
   // Validate that the name field is not empty.
   body('name', 'Genre name required')
     .isLength({ min: 1 })
     .trim(),
 
-  // Sanitize (trim and escape) the name field.
-  sanitizeBody('name')
-    .trim()
-    .escape(),
+  // Sanitize (trim) the name field.
+  sanitizeBody('name').escape(),
 
   // Process request after validation and sanitization.
   (req, res, next) => {
