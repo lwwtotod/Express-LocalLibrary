@@ -6,8 +6,9 @@ var logger = require('morgan')
 
 var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
-const catalogRouter = require('./routes/catalog')
-
+var catalogRouter = require('./routes/catalog')
+var compression = require('compression')
+var helmet = require('helmet')
 var app = express()
 // 设置 MongoDB 连接
 // const MongoClient = require('mongodb').MongoClient;
@@ -21,7 +22,7 @@ const uri =
 // });
 // 设置 Mongoose 连接
 const mongoose = require('mongoose')
-const mongoDB = uri
+const mongoDB = process.env.MONGODB_URI || uri
 mongoose.connect(uri, { useNewUrlParser: true }, { useUnifiedTopology: true })
 mongoose.Promise = global.Promise
 const db = mongoose.connection
@@ -35,6 +36,8 @@ app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
+app.use(helmet())
+app.use(compression())
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRouter)
